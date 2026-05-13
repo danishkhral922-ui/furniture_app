@@ -3,12 +3,14 @@ import 'package:furniture_app/controller/login_controller.dart';
 import 'package:furniture_app/controller/snackbar_controller.dart';
 import 'package:furniture_app/signup.dart';
 import 'package:get/get.dart';
+import 'package:furniture_app/controller/auth_controller.dart';
 
 class Login extends StatelessWidget {
   final LoginController controller = Get.put(LoginController());
 
   Login({super.key});
   final SnackController controller2 = Get.put(SnackController());
+  final AuthController authController = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +78,7 @@ class Login extends StatelessWidget {
                       child: Column(
                         children: [
                           TextFormField(
-                            controller: controller2.emailController,
+                            controller: authController.emailController,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
@@ -90,7 +92,7 @@ class Login extends StatelessWidget {
                           SizedBox(height: 20),
                           Obx(
                             () => TextFormField(
-                              controller: controller2.passwordController,
+                              controller: authController.passwordController,
                               obscureText: controller.isHidden.value,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
@@ -135,8 +137,8 @@ class Login extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              onPressed: () {
-                                controller2.login();
+                              onPressed: () async {
+                                await authController.login();
                               },
                               child: Text(
                                 'LOG IN',

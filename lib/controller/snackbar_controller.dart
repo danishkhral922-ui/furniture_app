@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:furniture_app/home.dart';
 import 'package:get/get.dart';
 
 class SnackController extends GetxController {
@@ -34,24 +33,25 @@ class SnackController extends GetxController {
       return;
     }
 
-    if (email != '1234@gmail.com' || password != '123456') {
-      Get.snackbar(
-        'Login Failed',
-        'Email or Password is wrong',
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.black87,
-        colorText: Colors.white,
-      );
-      return;
-    }
+    // if (email != '1234@gmail.com' || password != '123456') {
+    //   Get.snackbar(
+    //     'Login Failed',
+    //     'Email or Password is wrong',
+    //     snackPosition: SnackPosition.TOP,
+    //     backgroundColor: Colors.black87,
+    //     colorText: Colors.white,
+    //   );
+    //   //   return;
+    //   }
 
-    Get.snackbar(
-      'Success',
-      'Login Successfully',
-      snackPosition: SnackPosition.TOP,
-      backgroundColor: Colors.green,
-      colorText: Colors.white,
-    );
-    Get.offAll(Home());
+    //   Get.snackbar(
+    //     'Success',
+    //     'Login Successfully',
+    //     snackPosition: SnackPosition.TOP,
+    //     backgroundColor: Colors.green,
+    //     colorText: Colors.white,
+    //   );
+    //   Get.offAll(Home());
+    // }
   }
 }

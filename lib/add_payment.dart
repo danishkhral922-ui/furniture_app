@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furniture_app/home.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 
 class AddPayment extends StatelessWidget {
   const AddPayment({super.key});

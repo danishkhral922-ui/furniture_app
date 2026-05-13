@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:furniture_app/controller/signup_controller.dart';
 import 'package:furniture_app/login.dart';
 import 'package:get/get.dart';
+import 'package:furniture_app/controller/auth_controller.dart';
 
 class Signup extends StatelessWidget {
   Signup({super.key});
   final SignupController controller = Get.put(SignupController());
+  final AuthController authController = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +61,7 @@ class Signup extends StatelessWidget {
                     child: Column(
                       children: [
                         TextFormField(
+                          controller: authController.nameController,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderSide: BorderSide.none,
@@ -71,6 +74,7 @@ class Signup extends StatelessWidget {
                         Divider(color: Colors.grey, thickness: 2),
                         SizedBox(height: 20),
                         TextFormField(
+                          controller: authController.emailController,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderSide: BorderSide.none,
@@ -84,6 +88,7 @@ class Signup extends StatelessWidget {
                         SizedBox(height: 20),
                         Obx(
                           () => TextFormField(
+                            controller: authController.passwordController,
                             obscureText: controller.passwordHidden.value,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -109,6 +114,8 @@ class Signup extends StatelessWidget {
                         SizedBox(height: 20),
                         Obx(
                           () => TextFormField(
+                            controller:
+                                authController.confirmpasswordController,
                             obscureText: controller.confirmPasswordHidden.value,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -143,7 +150,9 @@ class Signup extends StatelessWidget {
                                 borderRadius: BorderRadiusGeometry.circular(10),
                               ),
                             ),
-                            onPressed: () {
+                            onPressed: () async {
+                              await authController.signUp();
+
                               Get.offAll(Login());
                             },
                             child: Text(
