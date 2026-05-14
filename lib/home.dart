@@ -5,6 +5,7 @@ import 'package:furniture_app/favourites.dart';
 import 'package:furniture_app/notificaions.dart';
 import 'package:furniture_app/product.dart';
 import 'package:furniture_app/profile.dart';
+import 'package:furniture_app/screen/add_product.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -97,14 +98,11 @@ class Home extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
         onPressed: () {
-          FirebaseFirestore.instance.collection('products').add({
-            "image":
-                "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
-            'name': 'New Chair',
-            'price': '\$ 15.00',
-          });
+          Get.to(AddProduct());
         },
+        child: Icon(Icons.add),
       ),
 
       appBar: AppBar(

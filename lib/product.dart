@@ -34,25 +34,19 @@ class Product extends StatelessWidget {
               child: Stack(
                 clipBehavior: Clip.none,
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.back();
-                    },
+                  Container(
+                    width: 323,
+                    height: 425,
 
-                    child: Container(
-                      width: 323,
-                      height: 425,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(40),
+                      ),
 
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(40),
-                        ),
+                      image: DecorationImage(
+                        image: NetworkImage(image),
 
-                        image: DecorationImage(
-                          image: NetworkImage(image),
-
-                          fit: BoxFit.cover,
-                        ),
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
@@ -63,13 +57,18 @@ class Product extends StatelessWidget {
                       height: 50,
                       width: 50,
 
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        color: Colors.white,
-                        child: Center(
-                          child: Icon(Icons.arrow_back_ios, size: 20),
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          color: Colors.white,
+                          child: Center(
+                            child: Icon(Icons.arrow_back_ios, size: 20),
+                          ),
                         ),
                       ),
                     ),
