@@ -6,37 +6,12 @@ import 'package:furniture_app/notificaions.dart';
 import 'package:furniture_app/product.dart';
 import 'package:furniture_app/profile.dart';
 import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
 
   final BottomNavController controller = Get.put(BottomNavController());
-
-  final List<Map<String, dynamic>> furniture = [
-    {
-      "image": "assets/images/lamp.png",
-      "name": "Black Simple Lamp",
-      "price": "\$ 12.00",
-    },
-
-    {
-      "image": "assets/images/stool.png",
-      "name": "Minimal Stand",
-      "price": "\$ 25.00",
-    },
-
-    {
-      "image": "assets/images/coffeechair.png",
-      "name": "Coffee Chair",
-      "price": "\$ 20.00",
-    },
-
-    {
-      "image": "assets/images/minimaldesk2.png",
-      "name": "Simple Desk",
-      "price": "\$ 50.00",
-    },
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -121,8 +96,19 @@ class Home extends StatelessWidget {
   Widget homeContent() {
     return Scaffold(
       backgroundColor: Colors.white,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          FirebaseFirestore.instance.collection('products').add({
+            "image":
+                "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
+            'name': 'New Chair',
+            'price': '\$ 15.00',
+          });
+        },
+      ),
 
       appBar: AppBar(
+        surfaceTintColor: Colors.white,
         backgroundColor: Colors.white,
 
         elevation: 0,
@@ -259,92 +245,84 @@ class Home extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
 
-              child: GridView.builder(
-                itemCount: furniture.length,
-
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-
-                  crossAxisSpacing: 15,
-
-                  mainAxisSpacing: 20,
-
-                  childAspectRatio: 0.62,
-                ),
-
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Get.to(
-                        Product(
-                          image: furniture[index]["image"],
-
-                          name: furniture[index]["name"],
-
-                          price: furniture[index]["price"],
+              child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('products')
+                    .snapshots(),
+                builder: (context, snapshots) {
+                  if (!snapshots.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  var data = snapshots.data!.docs;
+                  return GridView.builder(
+                    itemCount: data.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisSpacing: 15,
+                          mainAxisSpacing: 20,
+                          childAspectRatio: 0.62,
+                          crossAxisCount: 2,
+                        ),
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          Get.to(
+                            Product(
+                              image: data[index]['image'],
+                              name: data[index]['name'],
+                              price: data[index]['price'],
+                            ),
+                          );
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                          data[index]['image'],
+                                        ),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 10,
+                                    right: 10,
+                                    child: Image.asset(
+                                      'assets/images/shoppingbag2.png',
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                              data[index]['name'],
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                              data[index]['price'],
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
                         ),
                       );
                     },
-
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-
-                      children: [
-                        Expanded(
-                          child: Stack(
-                            children: [
-                              Container(
-                                width: double.infinity,
-
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                      furniture[index]["image"],
-                                    ),
-
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                bottom: 10,
-                                right: 10,
-
-                                child: Image.asset(
-                                  'assets/images/shoppingbag2.png',
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        const SizedBox(height: 10),
-
-                        Text(
-                          furniture[index]["name"],
-
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.grey,
-                          ),
-                        ),
-
-                        const SizedBox(height: 5),
-
-                        Text(
-                          furniture[index]["price"],
-
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
                   );
                 },
               ),
