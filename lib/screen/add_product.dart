@@ -64,7 +64,12 @@ class AddProduct extends StatelessWidget {
               height: 55,
 
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  backgroundColor: Colors.black,
+                ),
 
                 onPressed: () async {
                   await FirebaseFirestore.instance.collection('products').add({

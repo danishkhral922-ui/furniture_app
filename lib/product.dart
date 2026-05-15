@@ -228,7 +228,7 @@ class Product extends StatelessWidget {
 
                         'Added To Favourite',
 
-                        backgroundColor: Colors.red,
+                        backgroundColor: Colors.green,
 
                         colorText: Colors.white,
                       );
