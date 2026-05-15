@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:furniture_app/cart.dart';
 import 'package:furniture_app/controller/bottomvav_controller.dart';
-import 'package:furniture_app/favourites.dart';
+import 'package:furniture_app/favourite.dart';
 import 'package:furniture_app/notificaions.dart';
 import 'package:furniture_app/product.dart';
 import 'package:furniture_app/profile.dart';
@@ -19,7 +19,7 @@ class Home extends StatelessWidget {
     final List<Widget> screens = [
       homeContent(),
 
-      Favourites(),
+      Favourite(),
 
       Notificaions(),
 

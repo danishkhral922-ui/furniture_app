@@ -1,77 +1,102 @@
 import 'package:flutter/material.dart';
 import 'package:furniture_app/congrats.dart';
-import 'package:get/route_manager.dart';
+import 'package:furniture_app/controller/cart_controller.dart';
+import 'package:get/get.dart';
 
 class Checkout extends StatelessWidget {
-  const Checkout({super.key});
+  Checkout({super.key});
+
+  final CartController controller = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+
       appBar: AppBar(
         surfaceTintColor: Colors.white,
         backgroundColor: Colors.white,
+
         leading: GestureDetector(
           onTap: () {
             Get.back();
           },
-          child: Icon(Icons.arrow_back_ios),
+
+          child: const Icon(Icons.arrow_back_ios),
         ),
-        title: Text(
+
+        title: const Text(
           'Check Out',
+
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
         ),
+
         centerTitle: true,
       ),
+
       body: Column(
         children: [
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
+
                 child: Column(
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                       children: [
-                        Text(
+                        const Text(
                           'Shipping Address',
+
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 16,
                             color: Colors.grey,
                           ),
                         ),
+
                         Image.asset('assets/images/edit.png'),
                       ],
                     ),
-                    SizedBox(height: 10),
+
+                    const SizedBox(height: 10),
+
                     SizedBox(
                       height: 127,
                       width: 335,
+
                       child: Card(
                         shadowColor: Colors.grey,
                         elevation: 8,
                         color: Colors.white,
+
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
+
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
+
                             children: [
-                              Text(
+                              const Text(
                                 'Bruno Fernandes',
+
                                 style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   fontSize: 18,
                                   color: Colors.black,
                                 ),
                               ),
+
                               Divider(color: Colors.grey[200], thickness: 2),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
+
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
+
                                 child: Text(
                                   '25 rue Robert Latouche, Nice, 06200, Côte D’azur, France',
+
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 14,
@@ -84,34 +109,45 @@ class Checkout extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 30),
+
+                    const SizedBox(height: 30),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                       children: [
-                        Text(
+                        const Text(
                           'Payment',
+
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 16,
                             color: Colors.grey,
                           ),
                         ),
+
                         Image.asset('assets/images/edit.png'),
                       ],
                     ),
-                    SizedBox(height: 10),
+
+                    const SizedBox(height: 10),
+
                     SizedBox(
                       height: 68,
                       width: 335,
+
                       child: Card(
                         shadowColor: Colors.grey,
                         elevation: 8,
                         color: Colors.white,
+
                         child: Row(
                           children: [
                             Image.asset('assets/images/card.png'),
-                            Text(
+
+                            const Text(
                               '**** **** **** 3947',
+
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 16,
@@ -122,41 +158,55 @@ class Checkout extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 30),
+
+                    const SizedBox(height: 30),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                       children: [
-                        Text(
+                        const Text(
                           'Delivery Methods',
+
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 16,
                             color: Colors.grey,
                           ),
                         ),
+
                         Image.asset('assets/images/edit.png'),
                       ],
                     ),
-                    SizedBox(height: 30),
+
+                    const SizedBox(height: 30),
+
                     SizedBox(
                       height: 68,
                       width: 335,
+
                       child: Card(
                         shadowColor: Colors.grey,
                         elevation: 8,
                         color: Colors.white,
+
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
+
                           children: [
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 10,
                               ),
+
                               child: Image.asset('assets/images/dhl.png'),
                             ),
-                            SizedBox(width: 20),
-                            Text(
+
+                            const SizedBox(width: 20),
+
+                            const Text(
                               'Fast (2-3days)',
+
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 16,
@@ -167,39 +217,51 @@ class Checkout extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 30),
+
+                    const SizedBox(height: 30),
+
                     SizedBox(
                       height: 135,
                       width: 335,
+
                       child: Card(
                         shadowColor: Colors.grey,
                         elevation: 8,
                         color: Colors.white,
+
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                           children: [
-                            Column(
+                            const Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
                               children: [
                                 Text(
                                   ' Order :',
+
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 18,
                                     color: Colors.grey,
                                   ),
                                 ),
+
                                 Text(
                                   ' Delivery: ',
+
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 18,
                                     color: Colors.grey,
                                   ),
                                 ),
+
                                 Text(
                                   ' Total:',
+
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 18,
@@ -208,35 +270,48 @@ class Checkout extends StatelessWidget {
                                 ),
                               ],
                             ),
+
                             Padding(
                               padding: const EdgeInsets.all(8.0),
+
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
+
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
+
                                 children: [
-                                  Text(
-                                    '\$ 95.00',
+                                  Obx(
+                                    () => Text(
+                                      '\$ ${controller.totalPrice().toStringAsFixed(2)}',
+
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+
+                                  const Text(
+                                    '\$ 5.00',
+
                                     style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 18,
                                       color: Colors.black,
                                     ),
                                   ),
-                                  Text(
-                                    '\$ 05.00 ',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 18,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  Text(
-                                    '\$ 100.00',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 18,
-                                      color: Colors.black,
+
+                                  Obx(
+                                    () => Text(
+                                      '\$ ${(controller.totalPrice() + 5).toStringAsFixed(2)}',
+
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18,
+                                        color: Colors.black,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -246,29 +321,37 @@ class Checkout extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 40),
+
+                    const SizedBox(height: 40),
                   ],
                 ),
               ),
             ),
           ),
+
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
+
             child: SizedBox(
               height: 60,
               width: 335,
+
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadiusGeometry.circular(10),
+                    borderRadius: BorderRadius.circular(10),
                   ),
+
                   backgroundColor: Colors.black,
                 ),
+
                 onPressed: () {
                   Get.off(Congrats());
                 },
-                child: Text(
+
+                child: const Text(
                   'SUBMIT ORDER',
+
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,

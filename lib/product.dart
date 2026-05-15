@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:furniture_app/cart.dart';
 import 'package:furniture_app/controller/cart_controller.dart';
-import 'package:furniture_app/favourites.dart';
 import 'package:get/get.dart';
+import 'package:furniture_app/controller/favourite_controller.dart';
 
 class Product extends StatelessWidget {
   Product({
@@ -13,6 +13,10 @@ class Product extends StatelessWidget {
   });
 
   final CartController controller = Get.put(CartController());
+
+  final FavouriteController favouriteController = Get.put(
+    FavouriteController(),
+  );
 
   final String image;
   final String name;
@@ -134,7 +138,7 @@ class Product extends StatelessWidget {
 
                 children: [
                   Text(
-                    price,
+                    '\$  $price',
 
                     style: const TextStyle(
                       fontSize: 30,
@@ -212,8 +216,22 @@ class Product extends StatelessWidget {
 
                 children: [
                   GestureDetector(
-                    onTap: () {
-                      Get.to(Favourites());
+                    onTap: () async {
+                      await favouriteController.addToFavourite(
+                        name: name,
+                        price: price,
+                        image: image,
+                      );
+
+                      Get.snackbar(
+                        'Success',
+
+                        'Added To Favourite',
+
+                        backgroundColor: Colors.red,
+
+                        colorText: Colors.white,
+                      );
                     },
 
                     child: Image.asset('assets/images/fav2.png'),

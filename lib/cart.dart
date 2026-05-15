@@ -87,7 +87,7 @@ class Cart extends StatelessWidget {
                                 ),
 
                                 Text(
-                                  item['price'],
+                                  '\$ ${item['price']}',
 
                                   style: const TextStyle(
                                     fontSize: 16,
