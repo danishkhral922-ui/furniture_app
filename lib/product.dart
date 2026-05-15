@@ -5,19 +5,18 @@ import 'package:furniture_app/favourites.dart';
 import 'package:get/get.dart';
 
 class Product extends StatelessWidget {
-  final CartController controller = Get.put(CartController());
-  final String image;
-
-  final String name;
-  final String price;
-
   Product({
     super.key,
-
     required this.image,
     required this.name,
     required this.price,
   });
+
+  final CartController controller = Get.put(CartController());
+
+  final String image;
+  final String name;
+  final String price;
 
   @override
   Widget build(BuildContext context) {
@@ -31,42 +30,75 @@ class Product extends StatelessWidget {
           children: [
             Align(
               alignment: Alignment.topRight,
+
               child: Stack(
                 clipBehavior: Clip.none,
+
                 children: [
                   Container(
                     width: 323,
                     height: 425,
 
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(40),
                       ),
+                    ),
 
-                      image: DecorationImage(
-                        image: NetworkImage(image),
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(40),
+                      ),
+
+                      child: Image.network(
+                        image,
 
                         fit: BoxFit.cover,
+
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) {
+                            return child;
+                          }
+
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        },
+
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Center(
+                            child: Icon(
+                              Icons.image_not_supported,
+                              size: 50,
+                              color: Colors.grey,
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ),
+
                   Positioned(
                     top: 20,
                     left: -20,
-                    child: SizedBox(
-                      height: 50,
-                      width: 50,
 
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.back();
-                        },
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+
+                      child: SizedBox(
+                        height: 50,
+                        width: 50,
+
                         child: Card(
+                          color: Colors.white,
+
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          color: Colors.white,
-                          child: Center(
+
+                          child: const Center(
                             child: Icon(Icons.arrow_back_ios, size: 20),
                           ),
                         ),
@@ -81,6 +113,7 @@ class Product extends StatelessWidget {
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
+
               child: Text(
                 name,
 
@@ -95,8 +128,10 @@ class Product extends StatelessWidget {
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
+
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                 children: [
                   Text(
                     price,
@@ -106,57 +141,38 @@ class Product extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  Obx(
-                    () => Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            controller.increment(1);
-                          },
 
-                          child: Image.asset('assets/images/plus.png'),
-                        ),
+                  const Text(
+                    'Quantity: 1',
 
-                        const SizedBox(width: 10),
-
-                        Text(
-                          controller.quantityList[1].toString().padLeft(2, '0'),
-
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w700,
-
-                            fontSize: 16,
-                          ),
-                        ),
-
-                        const SizedBox(width: 10),
-
-                        GestureDetector(
-                          onTap: () {
-                            controller.decrement(1);
-                          },
-
-                          child: Image.asset('assets/images/minus.png'),
-                        ),
-                      ],
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
             ),
+
+            const SizedBox(height: 20),
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
+
               child: Row(
-                children: [
+                children: const [
                   Icon(Icons.star, color: Colors.amber, size: 30),
+
                   SizedBox(width: 10),
+
                   Text(
                     '4.5',
+
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
                   ),
+
                   SizedBox(width: 10),
+
                   Text(
                     '(50 reviews)',
+
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -166,10 +182,18 @@ class Product extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+
+            const SizedBox(height: 20),
+
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+
               child: Text(
-                'Minimal Stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home. ',
+                'Minimal Stand is made of natural wood. '
+                'The design is very simple and minimal. '
+                'This is one of the best furniture products '
+                'for your home.',
+
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w300,
@@ -177,33 +201,59 @@ class Product extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 30),
+
+            const SizedBox(height: 30),
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
+
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                 children: [
                   GestureDetector(
                     onTap: () {
                       Get.to(Favourites());
                     },
+
                     child: Image.asset('assets/images/fav2.png'),
                   ),
+
                   SizedBox(
                     height: 60,
                     width: 250,
+
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadiusGeometry.circular(10),
-                        ),
                         backgroundColor: Colors.black,
+
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
-                      onPressed: () {
+
+                      onPressed: () async {
+                        await controller.addToCart(
+                          name: name,
+                          price: price,
+                          image: image,
+                        );
+
+                        Get.snackbar(
+                          'Success',
+                          'Product Added To Cart',
+
+                          backgroundColor: Colors.green,
+
+                          colorText: Colors.white,
+                        );
+
                         Get.to(Cart());
                       },
-                      child: Text(
+
+                      child: const Text(
                         'Add to cart',
+
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -215,6 +265,8 @@ class Product extends StatelessWidget {
                 ],
               ),
             ),
+
+            const SizedBox(height: 30),
           ],
         ),
       ),
