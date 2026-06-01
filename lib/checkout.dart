@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:furniture_app/add_payment.dart';
+import 'package:furniture_app/add_shipping_address.dart';
 import 'package:furniture_app/congrats.dart';
 import 'package:furniture_app/controller/cart_controller.dart';
+import 'package:furniture_app/controller/payment.controller.dart';
+import 'package:furniture_app/controller/shipping_controller.dart';
 import 'package:get/get.dart';
 
 class Checkout extends StatelessWidget {
   Checkout({super.key});
 
   final CartController controller = Get.put(CartController());
+  final ShippingController shippingController = Get.put(ShippingController());
+  final PaymentController paymentController = Get.put(PaymentController());
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +63,10 @@ class Checkout extends StatelessWidget {
                           ),
                         ),
 
-                        Image.asset('assets/images/edit.png'),
+                        GestureDetector(
+                          onTap: () => Get.to(AddShippingAddress()),
+                          child: Image.asset('assets/images/edit.png'),
+                        ),
                       ],
                     ),
 
@@ -79,28 +88,30 @@ class Checkout extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
 
                             children: [
-                              const Text(
-                                'Bruno Fernandes',
+                              Obx(
+                                () => Text(
+                                  shippingController.fullname.value,
 
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 18,
-                                  color: Colors.black,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ),
 
                               Divider(color: Colors.grey[200], thickness: 2),
 
-                              const Padding(
-                                padding: EdgeInsets.all(8.0),
-
-                                child: Text(
-                                  '25 rue Robert Latouche, Nice, 06200, Côte D’azur, France',
-
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 14,
-                                    color: Colors.grey,
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Obx(
+                                  () => Text(
+                                    shippingController.address.value,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14,
+                                      color: Colors.grey,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -126,7 +137,10 @@ class Checkout extends StatelessWidget {
                           ),
                         ),
 
-                        Image.asset('assets/images/edit.png'),
+                        GestureDetector(
+                          onTap: () => Get.to(AddPayment()),
+                          child: Image.asset('assets/images/edit.png'),
+                        ),
                       ],
                     ),
 
@@ -145,13 +159,14 @@ class Checkout extends StatelessWidget {
                           children: [
                             Image.asset('assets/images/card.png'),
 
-                            const Text(
-                              '**** **** **** 3947',
-
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
-                                color: Colors.black,
+                            Obx(
+                              () => Text(
+                                paymentController.cardNumber.value,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                  color: Colors.black,
+                                ),
                               ),
                             ),
                           ],

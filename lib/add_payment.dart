@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:furniture_app/home.dart';
+import 'package:furniture_app/controller/payment.controller.dart';
 import 'package:get/get.dart';
 
 class AddPayment extends StatelessWidget {
-  const AddPayment({super.key});
+  AddPayment({super.key});
+
+  final PaymentController paymentController = Get.put(PaymentController());
+
+  final TextEditingController cardHolderController = TextEditingController();
+
+  final TextEditingController cardNumberController = TextEditingController();
+
+  final TextEditingController cvvController = TextEditingController();
+
+  final TextEditingController expiryController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +74,7 @@ class AddPayment extends StatelessWidget {
                           height: 44,
                           width: 300,
                           child: TextFormField(
+                            controller: cardHolderController,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
@@ -110,10 +121,17 @@ class AddPayment extends StatelessWidget {
                           height: 44,
                           width: 300,
                           child: TextFormField(
+                            controller: cardNumberController,
+                            keyboardType: TextInputType.number,
+                            maxLength: 16,
+
                             decoration: InputDecoration(
+                              counterText: '',
+
                               border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
                               ),
+
                               hintText: '**** **** **** 3456',
                               hintStyle: TextStyle(
                                 fontWeight: FontWeight.w600,
@@ -159,7 +177,11 @@ class AddPayment extends StatelessWidget {
                                 height: 44,
                                 width: 300,
                                 child: TextFormField(
+                                  controller: cvvController,
+                                  keyboardType: TextInputType.number,
+                                  maxLength: 03,
                                   decoration: InputDecoration(
+                                    counterText: '',
                                     border: OutlineInputBorder(
                                       borderSide: BorderSide.none,
                                     ),
@@ -207,7 +229,11 @@ class AddPayment extends StatelessWidget {
                                 height: 44,
                                 width: 300,
                                 child: TextFormField(
+                                  controller: expiryController,
+                                  keyboardType: TextInputType.number,
+                                  maxLength: 5,
                                   decoration: InputDecoration(
+                                    counterText: '',
                                     border: OutlineInputBorder(
                                       borderSide: BorderSide.none,
                                     ),
@@ -244,8 +270,36 @@ class AddPayment extends StatelessWidget {
                   backgroundColor: Colors.black,
                 ),
                 onPressed: () {
-                  Get.offAll(Home());
+                  if (cardNumberController.text.length != 16) {
+                    Get.snackbar('Error', 'Card Number must be 16 digits');
+                    return;
+                  }
+
+                  if (cvvController.text.length != 3) {
+                    Get.snackbar('Error', 'CVV must be 3 digits');
+                    return;
+                  }
+
+                  if (expiryController.text.length != 5) {
+                    Get.snackbar('Error', 'Expiry Date format should be MM/YY');
+                    return;
+                  }
+
+                  paymentController.cardHolderName.value = cardHolderController
+                      .text
+                      .trim();
+
+                  paymentController.cardNumber.value = cardNumberController.text
+                      .trim();
+
+                  paymentController.cvv.value = cvvController.text.trim();
+
+                  paymentController.expiryDate.value = expiryController.text
+                      .trim();
+
+                  Get.back();
                 },
+
                 child: Text(
                   'ADD NEW CARD',
                   style: TextStyle(

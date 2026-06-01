@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:furniture_app/checkout.dart';
+import 'package:furniture_app/controller/shipping_controller.dart';
 import 'package:furniture_app/controller/switch_controller.dart';
-import 'package:furniture_app/payment_methods.dart';
 import 'package:get/get.dart';
 
 class AddShippingAddress extends StatelessWidget {
   AddShippingAddress({super.key});
   final controller = Get.put(SwitchController());
+  final shippingcontroller = Get.put(ShippingController());
+  final TextEditingController namecontroller = TextEditingController();
+  final TextEditingController addresscontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +70,7 @@ class AddShippingAddress extends StatelessWidget {
                             height: 44,
                             width: 300,
                             child: TextFormField(
+                              controller: namecontroller,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide.none,
@@ -111,6 +116,7 @@ class AddShippingAddress extends StatelessWidget {
                             height: 44,
                             width: 300,
                             child: TextFormField(
+                              controller: addresscontroller,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide.none,
@@ -337,7 +343,11 @@ class AddShippingAddress extends StatelessWidget {
                   backgroundColor: Colors.black,
                 ),
                 onPressed: () {
-                  Get.to(PaymentMethods());
+                  shippingcontroller.fullname.value = namecontroller.text
+                      .trim();
+                  shippingcontroller.address.value = addresscontroller.text
+                      .trim();
+                  Get.to(Checkout());
                 },
                 child: Text(
                   'SAVE ADDRESS',

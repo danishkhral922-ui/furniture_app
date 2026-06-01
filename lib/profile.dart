@@ -14,6 +14,7 @@ class Profile extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        surfaceTintColor: Colors.white,
         backgroundColor: Colors.white,
         leading: Icon(Icons.search),
         centerTitle: true,
